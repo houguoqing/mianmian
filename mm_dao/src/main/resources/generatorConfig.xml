@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!--指定特定数据库的jdbc驱动jar包的位置-->
+    <context id="default" targetRuntime="MyBatis3">
+        <!--pojo实现序列化接口-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!--pojo类中增加toString方法-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!--覆盖生成XML文件 每次执行，把以前的mapper.xml覆盖而不是合并-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <!-- optional，旨在创建class时，对注释进行控制 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--jdbc的数据库连接 -->
+        <jdbcConnection
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://127.0.0.1:3306/kkb_mm_11?serverTimezone=Asia/Shanghai"
+                userId="root"
+                password="root">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- Model模型生成器,用来生成含有主键key的类，记录类 以及查询Example类
+            targetPackage     指定生成的model生成所在的包名
+            targetProject     指定在该项目下所在的路径
+        -->
+        <javaModelGenerator targetPackage="com.kkb.pojo" targetProject="src/main/java">
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="true"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+        <!--mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
+        <sqlMapGenerator targetPackage="com.kkb.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.kkb.mapper" targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <table tableName="t_course"></table>
+        <table tableName="t_catalog"></table>
+        <table tableName="t_tag"></table>
+        <table tableName="t_company"></table>
+        <table tableName="t_industry"></table>
+        <table tableName="t_dict"></table>
+        <table tableName="t_question"></table>
+        <table tableName="t_question_item"></table>
+        <table tableName="t_review_log"></table>
+        <table tableName="tr_question_tag"></table>
+        <table tableName="tr_company_industry"></table>
+
+        <table tableName="t_user"></table>
+        <table tableName="t_role"></table>
+        <table tableName="t_permission"></table>
+        <table tableName="tr_user_role"></table>
+        <table tableName="tr_role_permission"></table>
+
+        <table tableName="t_wx_member"></table>
+        <table tableName="tr_member_question"></table>
+
+
+    </context>
+</generatorConfiguration>

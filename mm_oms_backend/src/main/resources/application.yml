@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+
+spring:
+  mvc:
+    static-path-pattern: /**
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql//127.0.0.1:3306/kkb_mm_11?serverTime=Asia/Shanghai&characterEncoding=utf8
+    username: root
+    password: root
+
+logging:
+  file:
+    name: mm_oms.log
+    path: ./
+  level:
+    root: debug
+    com.kkb.mapper: debug
+  pattern:
+    console: log-%level %msg%n
+
+pegehelper:
+  help-dicalect: mysql
+  reasonable: false
+  support-methods-arguments: true
+  params: count=countSql
+  row-bounds-uewith-count: tr
