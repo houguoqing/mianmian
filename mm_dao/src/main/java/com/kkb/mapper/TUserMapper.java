@@ -16,6 +16,11 @@ public interface TUserMapper {
 
     int insertSelective(TUser record);
 
+    /**
+     * 根据条件查询用户列表
+     * @param example
+     * @return
+     * */
     List<TUser> selectByExample(TUserExample example);
 
     TUser selectByPrimaryKey(Integer id);

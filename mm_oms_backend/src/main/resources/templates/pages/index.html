@@ -141,7 +141,13 @@
                 // console.log(key, keyPath);
             },
             logout(){
-                window.location.href = "login";
+                axios.get(app_path+"user/logout").then((response)=>{
+                    //跳转到登录页
+                    window.location.href="login";
+                    //清除浏览器缓存
+                    sessionStorage.clear();
+                    }
+                )
             },
             isClossTabFun() {
                 if (!this.isCollapse) {
