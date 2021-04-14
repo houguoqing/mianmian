@@ -107,4 +107,45 @@ public class TCourse implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public long getCatalogQty() {
+        return catalogQty;
+    }
+
+    public void setCatalogQty(long catalogQty) {
+        this.catalogQty = catalogQty;
+    }
+
+    public long getTagQty() {
+        return tagQty;
+    }
+
+    public void setTagQty(long tagQty) {
+        this.tagQty = tagQty;
+    }
+
+    public long getQuestionQty() {
+        return questionQty;
+    }
+
+    public void setQuestionQty(long questionQty) {
+        this.questionQty = questionQty;
+    }
+
+    //扩展属性
+    private String creator;//创建者 名字
+
+    private long catalogQty;//该学科目录数量
+
+    private long tagQty;//学科标签数量
+
+    private long questionQty; //该学科下的题目数量
 }

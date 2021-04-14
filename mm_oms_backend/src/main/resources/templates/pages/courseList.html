@@ -194,79 +194,17 @@
 					console.log("学科分页列表请求参数：");
 					console.log(params);
 				  // 发送请求获取数据
-					let response = {
-						data:{
-							"code":200,
-							"msg": "获取学科列表成功",
-							"rows": [
-									{
-										"catalogQty": 10,
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"id": 1,
-										"isShow": 0,
-										"name": "Java",
-										"questionQty": 1,
-										"tagQty": 5
-									},
-									{
-										"catalogQty": 10,
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"id": 2,
-										"isShow": 0,
-										"name": "Python",
-										"questionQty": 1,
-										"tagQty": 5
-									},
-									{
-										"catalogQty": 10,
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"id": 3,
-										"isShow": 0,
-										"name": "大数据",
-										"questionQty": 1,
-										"tagQty": 5
-									},
-									{
-										"catalogQty": 10,
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"id": 4,
-										"isShow": 0,
-										"name": "Php",
-										"questionQty": 1,
-										"tagQty": 5
-									},
-									{
-										"catalogQty": 10,
-										"createDate": "2019-08-14 09:01:35.0",
-										"creator": "admin",
-										"id": 8,
-										"isShow": 0,
-										"name": "888",
-										"questionQty": 1,
-										"tagQty": 5
-									},
-									{
-										"catalogQty": 10,
-										"createDate": "2019-08-14 09:01:38.0",
-										"creator": "admin",
-										"id": 9,
-										"isShow": 0,
-										"name": "2",
-										"questionQty": 1,
-										"tagQty": 5
-									}
-								],
-							"total": 15
-							
+					axios.post(app_path+"course/findListByPage",params).then((response)=>{
+						console.log("学科分页列表返回数据：")
+						console.log(response);
+						if(response.data.code==200){
+							this.pagination.total = response.data.total;
+							this.items = response.data.rows;
+							this.loading = true;
+						}else {
+							this.$message.error("请求失败")
 						}
-					};
-
-					this.pagination.total = response.data.total;
-					this.items = response.data.rows;
+					})
 				},
 				// 清除
 				handleRest() {
@@ -289,11 +227,11 @@
 				},
 				// 学科目录
 				goToCatalogView(row) {
-					window.location.href = "catalogList.html?courseId=" + row.id;
+					window.location.href = "catalogList?courseId=" + row.id;
 				},
 				// 学科标签
 				goToTagView(row) {
-					window.location.href = "tagList.html?courseId=" + row.id;
+					window.location.href = "tagList?courseId=" + row.id;
 				},
 				// 新增学科
 				handleCreate() {
@@ -329,9 +267,19 @@
 							console.log("学科添加请求参数：");
 							console.log(params);
 							// 发送请求
-							this.$message.success("添加成功");
-							this.dialogFormVisible = false;
-							this.getList();
+							axios.post(app_path+"course/add",params).then((response)=>{
+								if(response.data.code == 200){
+									this.$message.success(response.data.msg);
+									this.dialogFormVisible =false;
+								}else {
+									this.$message.error(response.data.msg)
+								}
+									}
+							).finally(()=>{
+								this.getList();
+									}
+
+							)
 						}
 					});
 				},
@@ -342,8 +290,19 @@
 							let params = this.form;
 							console.log("学科更新请求参数：");
 							console.log(params);
-							this.$message.success("更新成功");
-							this.dialogFormVisible = false;
+							axios.post(app_path+"course/update", params).then((response)=>{
+										if(response.data.code = 200){
+											this.$message.success(response.data.msg)
+											this.getList()
+
+										}else{
+											this.$message.error(response.data.msg)
+										}
+										this.dialogFormVisible = false;
+
+									}
+
+							)
 						}
 					});
 				},

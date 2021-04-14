@@ -73,13 +73,13 @@
   <sql id="Base_Column_List">
     id, name, icon, create_date, is_show, user_id, order_no
   </sql>
-  <select id="selectByExample" parameterType="com.kkb.pojo.TCourseExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_course
+  <select id="selectByExample" parameterType="com.kkb.pojo.TCourseExample" resultType="com.kkb.pojo.TCourse">
+    SELECT tc.id,tc.name,tc. create_date AS createDate,tc.is_show AS isShow,
+    (SELECT COUNT(id) FROM t_catalog WHERE `course_id` = tc.id) AS catalogQty,
+    (SELECT COUNT(id) FROM 	`t_tag` WHERE `course_id` = tc.id) AS tagQty,
+    (SELECT COUNT(id) FROM `t_question` WHERE `course_id` = tc.id) AS questionQty,
+    (SELECT username FROM `t_user` WHERE `id` = tc.`user_id`) AS creator
+    FROM t_course tc
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

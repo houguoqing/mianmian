@@ -28,7 +28,7 @@
 							<el-form-item label="标签名称" prop="name">
 								<el-input placeholder="请输入" v-model="requestParameters.name" style="width: 200px;" class="filter-item"></el-input>
 							</el-form-item>
-							<el-form-item label="状态" prop="status" prop="status">
+							<el-form-item label="状态" prop="status">
 								<el-select placeholder="请选择" v-model="requestParameters.status">
 									<el-option :key="item.id" :label="item.value" :value="item.id" v-for="item in baseData.isDis"></el-option>
 								</el-select>
