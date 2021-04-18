@@ -2,6 +2,7 @@ package com.kkb.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class TQuestion implements Serializable {
     private Integer id;
@@ -207,30 +208,95 @@ public class TQuestion implements Serializable {
         this.analysis = analysis == null ? null : analysis.trim();
     }
 
+
+    //扩展字段
+    private String courseName; //学科名称
+    private String usedQty;    //使用次数
+    private String creator;    //录入人员
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getUsedQty() {
+        return usedQty;
+    }
+
+    public void setUsedQty(String usedQty) {
+        this.usedQty = usedQty;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+
+
+    //保存题目扩展字段
+    private TCompany company;//所属公司信息
+
+    private List<TQuestionItem> questionItemList;//题目选项集合
+
+    private List<TTag> tagList;//所属标签列表
+
+    public TCompany getCompany() {
+        return company;
+    }
+
+    public void setCompany(TCompany company) {
+        this.company = company;
+    }
+
+    public List<TQuestionItem> getQuestionItemList() {
+        return questionItemList;
+    }
+
+    public void setQuestionItemList(List<TQuestionItem> questionItemList) {
+        this.questionItemList = questionItemList;
+    }
+
+    public List<TTag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<TTag> tagList) {
+        this.tagList = tagList;
+    }
+
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", number=").append(number);
-        sb.append(", subject=").append(subject);
-        sb.append(", type=").append(type);
-        sb.append(", difficulty=").append(difficulty);
-        sb.append(", analysisVideo=").append(analysisVideo);
-        sb.append(", remark=").append(remark);
-        sb.append(", isClassic=").append(isClassic);
-        sb.append(", status=").append(status);
-        sb.append(", reviewStatus=").append(reviewStatus);
-        sb.append(", createDate=").append(createDate);
-        sb.append(", userId=").append(userId);
-        sb.append(", companyId=").append(companyId);
-        sb.append(", catalogId=").append(catalogId);
-        sb.append(", courseId=").append(courseId);
-        sb.append(", analysis=").append(analysis);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "TQuestion{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", subject='" + subject + '\'' +
+                ", type=" + type +
+                ", difficulty=" + difficulty +
+                ", analysisVideo='" + analysisVideo + '\'' +
+                ", remark='" + remark + '\'' +
+                ", isClassic=" + isClassic +
+                ", status=" + status +
+                ", reviewStatus=" + reviewStatus +
+                ", createDate=" + createDate +
+                ", userId=" + userId +
+                ", companyId=" + companyId +
+                ", catalogId=" + catalogId +
+                ", courseId=" + courseId +
+                ", analysis='" + analysis + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", usedQty='" + usedQty + '\'' +
+                ", creator='" + creator + '\'' +
+                ", company=" + company +
+                ", questionItemList=" + questionItemList +
+                ", tagList=" + tagList +
+                '}';
     }
 }

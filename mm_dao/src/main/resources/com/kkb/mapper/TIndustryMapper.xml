@@ -195,4 +195,8 @@
       order_no = #{orderNo,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectIndustryListByCompanyId" resultType="com.kkb.pojo.TIndustry">
+    SELECT id,NAME FROM `t_industry`
+    WHERE id IN(SELECT `industry_id` FROM `tr_company_industry` WHERE `company_id` = #{id})
+  </select>
 </mapper>

@@ -311,79 +311,16 @@
 					console.log("基础题库列表请求参数：");
 					console.log(params);
 
-				  let data = {
-						"code":200,
-						"msg": "获取题目列表成功",
-						"rows": [
-								{
-									"courseName": "java",
-									"createDate": "2019-08-08 00:00:00.0",
-									"creator": "admin",
-									"difficulty": 4,
-									"id": 11,
-									"number": "",
-									"status": 0,
-									"subject": "<p>反爬虫措施？</p>\r\n",
-									"type": 3,
-									"usedQty": "0"
-								},
-								{
-									"courseName": "java",
-									"createDate": "2019-08-08 00:00:00.0",
-									"creator": "admin",
-									"difficulty": 5,
-									"id": 12,
-									"number": "",
-									"status": 0,
-									"subject": "<p>加入Redis里面有1亿个key，其中10w个key是以某个固定的一直的前缀开头的，如何将他们全部找出来。</p>\r\n",
-									"type": 3,
-									"usedQty": "0"
-								},
-								{
-									"courseName": "java",
-									"createDate": "2019-08-08 00:00:00.0",
-									"creator": "admin",
-									"difficulty": 3,
-									"id": 13,
-									"number": "",
-									"status": 0,
-									"subject": "<p>Redis是多进程还是多线程的，简单描述redis数据库对于线程的管理机制</p>\r\n",
-									"type": 3,
-									"usedQty": "0"
-								},
-								{
-									"courseName": "java",
-									"createDate": "2019-08-08 00:00:00.0",
-									"creator": "admin",
-									"difficulty": 3,
-									"id": 14,
-									"number": "",
-									"status": 0,
-									"subject": "<p>redis相比memcached有哪些优势</p>\r\n",
-									"type": 3,
-									"usedQty": "0"
-								},
-								{
-									"courseName": "java",
-									"createDate": "2019-08-08 00:00:00.0",
-									"creator": "admin",
-									"difficulty": 2,
-									"id": 15,
-									"number": "",
-									"status": 0,
-									"subject": "<p>谈谈对线程池的理解?</p>\r\n",
-									"type": 3,
-									"usedQty": "0"
-								}
-						],
-							
-						"total": 20
-						
-					}
-					t.pagination.total = data.total;
-					t.items = data.rows;
-					t.loading = true;
-
+					axios.post(app_path+"question/findListByPage",params).then((response)=>{
+						if(response.data.code = 200){
+							let data = response.data;
+							t.pagination.total = data.total;
+							t.items = data.rows;
+							t.loading = true;
+						}else {
+							this.$message.error(response.data.msg);
+						}
+					})
 
 				},
 				//清除
@@ -407,16 +344,16 @@
 				},
 				// 新增试题
 				handleCreate() {
-					window.location.href = "questionEditor.html?questionId=0&is_classic=" + this.is_classic;
+					window.location.href = "questionEditor?questionId=0&is_classic=" + this.is_classic;
 				},
 				// 预览试题
 				handlePreview(row) {
-					window.location.href = "questionPreview.html?questionId=" + row.id + "&is_classic=" + this.is_classic +
+					window.location.href = "questionPreview?questionId=" + row.id + "&is_classic=" + this.is_classic +
 						"&is_examine=0";
 				},
 				// 修改试题
 				handleUpdate(row) {
-					window.location.href = "questionEditor.html?questionId=" + row.id + "&is_classic=" + this.is_classic;
+					window.location.href = "questionEditor?questionId=" + row.id + "&is_classic=" + this.is_classic;
 				},
 				// 删除试题
 				handleDeleted(row) {

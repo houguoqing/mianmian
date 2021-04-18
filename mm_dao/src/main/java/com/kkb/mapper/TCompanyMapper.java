@@ -24,7 +24,20 @@ public interface TCompanyMapper {
 
     int updateByExample(@Param("record") TCompany record, @Param("example") TCompanyExample example);
 
+    /**
+     * 根据主键 更新传入信息
+     * @param record
+     * @return
+     * */
     int updateByPrimaryKeySelective(TCompany record);
 
     int updateByPrimaryKey(TCompany record);
+
+    /**
+     * 查询公司列表 含有行业信息
+     * @return
+     * */
+    List<TCompany> selectListAll();
+
+
 }

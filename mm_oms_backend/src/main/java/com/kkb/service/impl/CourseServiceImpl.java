@@ -50,4 +50,14 @@ public class CourseServiceImpl implements CourseService {
         int result = courseMapper.updateByPrimaryKeySelective(course);
         return result;
     }
+
+    /**
+     * 查询所有学科列表
+     * @return
+     */
+    @Override
+    public List<TCourse> findListAll() {
+        List<TCourse> courseList = courseMapper.selectListAll();
+        return courseList;
+    }
 }

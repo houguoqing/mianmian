@@ -479,101 +479,17 @@
             // 学科下拉列表
             initCourses() {
                 let t = this;
-                let response = {
-                    data:{
-                        "code":200,
-                        "message": "获取列表成功",
-                        "data": [
-                            {
-                                "catalogList": [
-                                    {
-                                        "id": 1,
-                                        "name": "Java基础"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "name": "JavaWeb"
-                                    },
-                                    {
-                                        "id": 3,
-                                        "name": "Spring MVC"
-                                    },
-                                    {
-                                        "id": 4,
-                                        "name": "Spring boot"
-                                    },
-                                    {
-                                        "id": 8,
-                                        "name": "进程线程"
-                                    },
-                                    {
-                                        "id": 13,
-                                        "name": "aaaa"
-                                    }
-                                ],
-                                "tagList": [
-                                    {
-                                        "id": 1,
-                                        "name": "String字符串"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "name": "Java类与对象"
-                                    },
-                                    {
-                                        "id": 3,
-                                        "name": "Servlet"
-                                    },
-                                    {
-                                        "id": 4,
-                                        "name": "多线程"
-                                    }
-                                ],
-                                "id": 1,
-                                "name": "Java"
-                            },
-                            {
-                                "catalogList": [
-                                    {
-                                        "id": 5,
-                                        "name": "Python基础"
-                                    },
-                                    {
-                                        "id": 6,
-                                        "name": "函数编程"
-                                    },
-                                    {
-                                        "id": 7,
-                                        "name": "面向对象编程"
-                                    }
-                                ],
-                                "id": 2,
-                                "name": "Python"
-                            },
-                            {
-                                "catalogList": [],
-                                "id": 3,
-                                "name": "大数据"
-                            },
-                            {
-                                "catalogList": [],
-                                "id": 4,
-                                "name": "Php"
-                            },
-                            {
-                                "catalogList": [],
-                                "id": 8,
-                                "name": "888"
-                            },
-                            {
-                                "catalogList": [],
-                                "id": 9,
-                                "name": "2"
-                            }
-                        ]
+                //发送请求
+                axios.get(app_path+"course/findListAll").then((response)=>{
+                    if(response.data.code == 200){
+                        t.courses = response.data.data;
+                        console.log("初始化学科列表")
+                        console.log(t.courses)
+                    }else {
+                        this.$message.error(response.data.msg);
                     }
-                }
-                t.courses = response.data.data;
+                    }
+                )
             },
             changeCourse() {
                 let courseId = this.formData.courseId;
@@ -590,58 +506,18 @@
             // 企业下拉列表
             initCompanys() {
                 let t = this;
-                let response = {
-                    data:{
-                        "code":200,
-                       "msg":"操作成功",
-                        "data": [
-                            {
-                                "cityId": 9,
-                                "id": 1,
-                                "industryList": [
-                                    {
-                                        "id": 1,
-                                        "name": "电商平台"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "name": "金融服务"
-                                    },
-                                    {
-                                        "id": 3,
-                                        "name": "电竞游戏"
-                                    }
-                                ],
-                                "shortName": "北京淘宝网"
-                            },
-                            {
-                                "cityId": 10,
-                                "id": 2,
-                                "industryList": [
-                                    {
-                                        "id": 2,
-                                        "name": "金融服务"
-                                    }
-                                ],
-                                "shortName": "北京支付宝"
-                            },
-                            {
-                                "cityId": 1,
-                                "id": 3,
-                                "industryList": [
-                                    {
-                                        "id": 2,
-                                        "name": "金融服务"
-                                    }
-                                ],
-                                "shortName": "北京蚂蚁金服"
-                            }
-                        ]
+
+                axios.get(app_path+"company/findListAll").then((response)=>{
+                    if(response.data.code==200){
+                        t.companys = response.data.data;
+                    }else {
+                        this.$message.error(response.data.msg);
                     }
-                }
-                t.companys = response.data.data;
-                // 初始化试题(初始化公司时，需要在初始化公司之后再初始化)
-                this.initQuestionById()
+                    // 初始化试题(初始化公司时，需要在初始化公司之后再初始化)
+                    this.initQuestionById()
+                    }
+                )
+
             },
             changeCompany(val) {
                 let companyId = this.formData.companyId;
@@ -758,27 +634,14 @@
             // 方向下拉列表
             initIndustrys() {
                 let t = this;
-                let response = {
-                    data: {
-                        "code":200,
-                       "msg":"操作成功",
-                        "data": [
-                            {
-                                "id": 1,
-                                "name": "电商平台"
-                            },
-                            {
-                                "id": 2,
-                                "name": "金融服务"
-                            },
-                            {
-                                "id": 3,
-                                "name": "移动通讯"
-                            }
-                        ]
+                axios.get(app_path+"industry/findListAll").then((response)=>{
+                    if(response.data.code == 200){
+                        t.industrys = response.data.data;
+                    }else {
+                        this.$message.error(response.data.msg);
                     }
-                }
-                t.industrys = response.data.data;
+                    }
+                )
             },
             // 切换题型，重置选项选中状态
             changeType(val) {
@@ -894,25 +757,33 @@
                 formData.tagList = tagList;
                 console.log("新增更新题库请求参数：");
                 console.log(this.formData);
-                this.$message.success("操作成功");
-                // 返回到上一级
-                if (!this.formData.is_classic) {
-                    setTimeout(function () {
-                            //window.location.href = "questionBasicList.html";
+
+                axios.post(app_path+"question/addOrUpdate",formData).then((response)=>{
+                    if(response.data.code=200){
+                        this.$message.success("操作成功");
+                        // 返回到上一级
+                        if (!this.formData.is_classic) {
+                            setTimeout(function () {
+                                    //暂时可以先注释掉，调试结束后关闭注释
+                                    window.location.href = "../questionBasicList";
+
+                                }
+                                , 1000);
+                        } else {
+                            setTimeout(function () {
+                                window.location.href = "../questionClassicList";
+                            }, 1000);
                         }
-                        , 1000);
-                } else {
-                    setTimeout(function () {
-                        //window.location.href = "questionClassicList.html";
-                    }, 1000);
-                }
+                    }
+                    }
+                )
             },
             // 取消提交
             cancelItem() {
                 if (!this.formData.is_classic) {
-                    window.location.href = "questionBasicList.html";
+                    window.location.href = "../questionBasicList";
                 } else {
-                    window.location.href = "questionClassicList.html";
+                    window.location.href = "../questionClassicList";
                 }
             }
         }

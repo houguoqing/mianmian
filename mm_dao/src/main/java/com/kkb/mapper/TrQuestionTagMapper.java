@@ -8,10 +8,20 @@ import org.apache.ibatis.annotations.Param;
 public interface TrQuestionTagMapper {
     long countByExample(TrQuestionTagExample example);
 
+    /**
+     * 根据条件删除
+     * @param example
+     * @return
+     * */
     int deleteByExample(TrQuestionTagExample example);
 
     int deleteByPrimaryKey(TrQuestionTagKey key);
 
+    /**
+     * 添加 TQuestion 与TTag 关系
+     * @param record
+     * @return
+     * */
     int insert(TrQuestionTagKey record);
 
     int insertSelective(TrQuestionTagKey record);

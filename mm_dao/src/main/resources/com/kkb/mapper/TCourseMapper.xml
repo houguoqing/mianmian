@@ -242,4 +242,22 @@
       order_no = #{orderNo,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="mapForAllList" type="com.kkb.pojo.TCourse">
+    <id column="id" property="id"/>
+    <collection property="catalogList"
+                javaType="java.util.ArrayList" ofType="com.kkb.pojo.TCatalog"
+                column="id"
+                select="com.kkb.mapper.TCatalogMapper.selectCatalogListByCourseId"/>
+    <collection property="tagList"
+                javaType="java.util.ArrayList" ofType="com.kkb.pojo.TTag"
+                column="id"
+                select="com.kkb.mapper.TTagMapper.selectTagListByCourseId" />
+  </resultMap>
+
+
+  <select id="selectListAll" resultMap="mapForAllList">
+    select id,name from t_course
+  </select>
+
 </mapper>

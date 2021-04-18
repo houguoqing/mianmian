@@ -2,6 +2,7 @@ package com.kkb.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class TCourse implements Serializable {
     private Integer id;
@@ -108,6 +109,15 @@ public class TCourse implements Serializable {
         return sb.toString();
     }
 
+    //扩展属性
+    private String creator;//创建者 名字
+
+    private long catalogQty;//该学科目录数量
+
+    private long tagQty;//学科标签数量
+
+    private long questionQty; //该学科下的题目数量
+
     public String getCreator() {
         return creator;
     }
@@ -140,12 +150,27 @@ public class TCourse implements Serializable {
         this.questionQty = questionQty;
     }
 
-    //扩展属性
-    private String creator;//创建者 名字
+    public List<TCatalog> getCatalogList() {
+        return catalogList;
+    }
 
-    private long catalogQty;//该学科目录数量
+    public void setCatalogList(List<TCatalog> catalogList) {
+        this.catalogList = catalogList;
+    }
 
-    private long tagQty;//学科标签数量
+    public List<TTag> getTagList() {
+        return tagList;
+    }
 
-    private long questionQty; //该学科下的题目数量
+    public void setTagList(List<TTag> tagList) {
+        this.tagList = tagList;
+    }
+
+    //扩展字段(初始化题库页面)
+    private List<TCatalog> catalogList;//学科下的目录列表
+
+    private List<TTag> tagList;//学科下的标签列表
+
+
+
 }

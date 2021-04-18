@@ -32,5 +32,9 @@ public interface CourseService {
      * */
     int updateCourse(TCourse course);
 
-
+    /**
+     * 查询所有学科列表(带有学科目录和学科标签)
+     * @return
+     * */
+    List<TCourse> findListAll();
 }

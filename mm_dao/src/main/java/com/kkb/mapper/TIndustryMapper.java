@@ -16,6 +16,11 @@ public interface TIndustryMapper {
 
     int insertSelective(TIndustry record);
 
+    /**
+     * 查询行业方向列表
+     * @param example
+     * @return
+     * */
     List<TIndustry> selectByExample(TIndustryExample example);
 
     TIndustry selectByPrimaryKey(Integer id);

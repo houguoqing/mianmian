@@ -9,6 +9,7 @@ import com.kkb.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -85,4 +86,15 @@ public class CourseController extends BaseController{
         }
     }
 
+    @GetMapping("course/findListAll")
+    @ResponseBody
+    public AjaxResult findListForQuestion(){
+        try{
+            List<TCourse> courseList = courseService.findListAll();
+            return AjaxResult.success(courseList);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return  AjaxResult.error("查询失败 "+e.getMessage());
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.kkb.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class TCompany implements Serializable {
     private Integer id;
@@ -123,24 +124,25 @@ public class TCompany implements Serializable {
         this.orderNo = orderNo;
     }
 
+    //扩展字段
+    private List<TIndustry> industryList; //行业列表
+
+    public List<TIndustry> getIndustryList() {
+        return industryList;
+    }
+
+    public void setIndustryList(List<TIndustry> industryList) {
+        this.industryList = industryList;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", shortName=").append(shortName);
-        sb.append(", fullName=").append(fullName);
-        sb.append(", isFamous=").append(isFamous);
-        sb.append(", state=").append(state);
-        sb.append(", remark=").append(remark);
-        sb.append(", createDate=").append(createDate);
-        sb.append(", cityId=").append(cityId);
-        sb.append(", userId=").append(userId);
-        sb.append(", orderNo=").append(orderNo);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "TCompany{" +
+                "id=" + id +
+                ", shortName='" + shortName + '\'' +
+                ", cityId=" + cityId +
+                ", userId=" + userId +
+                ", industryList=" + industryList +
+                '}';
     }
 }

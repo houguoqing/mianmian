@@ -290,4 +290,16 @@
       order_no = #{orderNo,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="resultMapForAllList" type="com.kkb.pojo.TCompany">
+    <id column="id" property="id"/>
+    <collection property="industryList"
+                javaType="java.util.ArrayList"
+                ofType="com.kkb.pojo.TIndustry"
+                column="id"
+                select="com.kkb.mapper.TIndustryMapper.selectIndustryListByCompanyId"/>
+  </resultMap>
+
+  <select id="selectListAll" resultMap="resultMapForAllList">
+    SELECT id,`city_id` AS city_id,`short_name` AS shortName FROM `t_company`
+  </select>
 </mapper>

@@ -47,4 +47,10 @@ public interface TCourseMapper {
     int updateByPrimaryKeySelective(TCourse record);
 
     int updateByPrimaryKey(TCourse record);
+
+    /**
+     * 查询学科列表
+     * @return
+     */
+    List<TCourse> selectListAll();
 }

@@ -12,6 +12,11 @@ public interface TQuestionItemMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    /**
+     * 添加选项
+     * @param record
+     * @return
+     * */
     int insert(TQuestionItem record);
 
     int insertSelective(TQuestionItem record);
@@ -24,6 +29,11 @@ public interface TQuestionItemMapper {
 
     int updateByExample(@Param("record") TQuestionItem record, @Param("example") TQuestionItemExample example);
 
+    /**
+     * 更新选项
+     * @param record
+     * @return
+     * */
     int updateByPrimaryKeySelective(TQuestionItem record);
 
     int updateByPrimaryKey(TQuestionItem record);
