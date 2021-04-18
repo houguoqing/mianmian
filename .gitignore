@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
-
+.gz
+.tmp
 # Eclipse
 .project
 .classpath
