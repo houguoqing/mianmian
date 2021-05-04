@@ -370,133 +370,17 @@
 					console.log("精选题库列表请求参数：");
 					console.log(params);
 
-					let response = {
-						data:{
-							"code": 200,
-							"msg": "查询成功",
-							"rows": [
-									{
-										"answerIsRight": false,
-										"courseName": "java",
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"difficulty": 1,
-										"id": 1,
-										"isFamous": false,
-										"isFavorite": false,
-										"isFinished": false,
-										"number": "",
-										"reviewLog": {
-											"comments": "通过",
-											"createDate": "2019-08-14 10:35:24.0",
-											"id": 4,
-											"reviewer": "admin",
-											"status": 1
-										},
-										"status": 0,
-										"subject": "<p>springmvc，mybatis的执行流程，spring中事物的管理</p>\r\n",
-										"type": 5,
-										"usedQty": "0"
-									},
-									{
-										"answerIsRight": false,
-										"courseName": "java",
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"difficulty": 1,
-										"id": 2,
-										"isFamous": false,
-										"isFavorite": false,
-										"isFinished": false,
-										"number": "",
-										"reviewLog": {
-											"comments": "",
-											"createDate": "",
-											"reviewer": "",
-											"status": 0
-										},
-										"status": 1,
-										"subject": "<p>多线程通信</p>\r\n",
-										"type": 5,
-										"usedQty": "0"
-									},
-									{
-										"answerIsRight": false,
-										"courseName": "java",
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"difficulty": 1,
-										"id": 3,
-										"isFamous": false,
-										"isFavorite": false,
-										"isFinished": false,
-										"number": "",
-										"reviewLog": {
-											"comments": "",
-											"createDate": "",
-											"reviewer": "",
-											"status": 0
-										},
-										"status": 1,
-										"subject": "下面关于线程创建的定义不正确的有（）</p>\r\n",
-										"type": 1,
-										"usedQty": "0"
-									},
-									{
-										"answerIsRight": false,
-										"courseName": "java",
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"difficulty": 2,
-										"id": 4,
-										"isFamous": false,
-										"isFavorite": false,
-										"isFinished": false,
-										"number": "",
-										"reviewLog": {
-											"comments": "",
-											"createDate": "",
-											"reviewer": "",
-											"status": 0
-										},
-										"status": 2,
-										"subject": "以下关于toString（）方法、equals（）方法说法正确的是？（ ）</p>\r\n",
-										"type": 1,
-										"usedQty": "0"
-									},
-									{
-										"answerIsRight": false,
-										"courseName": "java",
-										"createDate": "2019-08-08 00:00:00.0",
-										"creator": "admin",
-										"difficulty": 2,
-										"id": 5,
-										"isFamous": false,
-										"isFavorite": false,
-										"isFinished": false,
-										"number": "",
-										"reviewLog": {
-											"comments": "",
-											"createDate": "",
-											"reviewer": "",
-											"status": 0
-										},
-										"status": 3,
-										"subject": "以下选项对Lambda说法错误的是 ?（） </p>\r\n",
-										"type": 1,
-										"usedQty": "0"
-									}
-								],
-						     "total": 558
-							
+					axios.post(app_path+"question/findClassicListByPage",params).then((response)=>{
+						if(response.data.code = 200){
+							let result = response.data;
+							t.pagination.total = result.total;
+							t.items = result.rows;
+							t.loading = true;
+						}else {
+							this.$message.error(response.data.msg)
 						}
-					}
-					let result = response.data;
-					t.pagination.total = result.total;
-					t.items = result.rows;
-					t.loading = true;
-
-
+							}
+					)
 				},
 				//清除
 				handleRest() {
@@ -519,21 +403,21 @@
 				},
 				// 新增试题
 				handleCreate() {
-					window.location.href = "questionEditor.html?questionId=0&is_classic=" + this.is_classic;
+					window.location.href = "questionEditor?questionId=0&is_classic=" + this.is_classic;
 				},
 				// 审核试题
 				handleExamine(row) {
-					window.location.href = "questionPreview.html?questionId=" + row.id + "&is_classic=" + this.is_classic +
+					window.location.href = "questionPreview?questionId=" + row.id + "&is_classic=" + this.is_classic +
 						"&is_examine=1";
 				},
 				// 预览试题
 				handlePreview(row) {
-					window.location.href = "questionPreview.html?questionId=" + row.id + "&is_classic=" + this.is_classic +
+					window.location.href = "questionPreview?questionId=" + row.id + "&is_classic=" + this.is_classic +
 						"&is_examine=0";
 				},
 				// 修改试题
 				handleUpdate(row) {
-					window.location.href = "questionEditor.html?questionId=" + row.id + "&is_classic=" + this.is_classic;
+					window.location.href = "questionEditor?questionId=" + row.id + "&is_classic=" + this.is_classic;
 				},
 				// 试题下架
 				handleOff(row) {

@@ -199,4 +199,9 @@
     SELECT id,NAME FROM `t_industry`
     WHERE id IN(SELECT `industry_id` FROM `tr_company_industry` WHERE `company_id` = #{id})
   </select>
+  <select id="selectIndustryListByCompany" resultType="com.kkb.pojo.TIndustry">
+    select id,NAME
+    FROM t_industry i,tr_company_industry ci
+    where ci.`company_id` = #{id} AND ci.`industry_id` = i.`id`;
+  </select>
 </mapper>

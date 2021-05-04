@@ -247,4 +247,8 @@
     from t_tag
     where course_id = #{id}
   </select>
+  <select id="selectTaglistByQuestionId" resultType="com.kkb.pojo.TTag">
+    SELECT t.id,t.NAME FROM  `tr_question_tag` qt,t_question q,t_tag t
+    WHERE `question_id` = #{questionId} AND qt.`question_id` = q.id AND qt.`tag_id` = t.id
+  </select>
 </mapper>

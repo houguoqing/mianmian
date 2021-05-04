@@ -145,4 +145,25 @@ public class TCompany implements Serializable {
                 ", industryList=" + industryList +
                 '}';
     }
+
+    public List<String> getIndustryNameList() {
+        return industryNameList;
+    }
+
+    public void setIndustryNameList(List<String> industryNameList) {
+        this.industryNameList = industryNameList;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    //扩展字段,题目预览信息
+    private List<String> industryNameList;//行业名称列表
+
+    private String city; //城市名称
 }

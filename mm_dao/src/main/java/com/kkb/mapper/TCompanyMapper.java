@@ -39,5 +39,12 @@ public interface TCompanyMapper {
      * */
     List<TCompany> selectListAll();
 
+    /**
+     * 根据公司id 获取公司相关信息
+     * @param id
+     * @return
+     * */
+    TCompany selectByIdForQuestion(Integer id);
+
 
 }

@@ -37,4 +37,6 @@ public interface TQuestionItemMapper {
     int updateByPrimaryKeySelective(TQuestionItem record);
 
     int updateByPrimaryKey(TQuestionItem record);
+
+    List<TQuestionItem> selectListByQuestionId(Integer id);
 }

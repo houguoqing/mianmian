@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLOutput;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Service
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
@@ -159,5 +157,103 @@ public class QuestionServiceImpl implements QuestionService {
             i++;
         }
         return i;
+    }
+
+    @Autowired
+    private TReviewLogMapper reviewLogMapper;
+
+    /**
+     * 分页获取精选题库列表
+     * @param queryPageBean
+     * @return
+     * */
+    @Override
+    public List<TQuestion> findClassicByPage(QueryPageBean queryPageBean) {
+        Map params = queryPageBean.getQueryParams();
+        if(null == params){
+            params = new HashMap();
+        }
+        //查询精选题目
+        params.put("isClassic",1);
+        PageHelper.startPage(queryPageBean.getPageNum(),queryPageBean.getPageSize());
+        List<TQuestion> questionList = questionMapper.selectIsClassicByPage(params);
+        //获取每条记录的审核日志
+        for(TQuestion question:questionList){
+            TReviewLog reviewLog = reviewLogMapper.selectLastByQuestionId(question.getId());
+            if(StringUtils.isNull(reviewLog)){
+                reviewLog = new TReviewLog();
+                reviewLog.setStatus(0);
+                reviewLog.setComments("");
+                reviewLog.setReviewer("");
+                reviewLog.setCreateDate(null);
+            }
+            question.setReviewLog(reviewLog);
+        }
+
+        return questionList;
+    }
+
+    /**
+     * 根据id 查询题目信息
+     * @param questionId
+     * @return
+     * */
+    @Override
+    public TQuestion findById(int questionId) {
+        System.out.println("查询题目id==="+questionId);
+        //1.获取题目基本信息，级联查询选项信息
+        TQuestion question = questionMapper.selectById(questionId);
+        //2.查询学科目录信息
+        initQuestionCatalog(question);
+        //3.获取标签列表
+        initQuestionTag(question);
+        //4.根据公司id 获取所属公司信息
+        initQuestionCompany(question);
+        return question;
+    }
+
+    @Autowired
+    private TCatalogMapper catalogMapper;
+
+    private void initQuestionCatalog(TQuestion question){
+        TCatalog catalog = catalogMapper.selectByPrimaryKey(question.getCatalogId());
+        question.setCatalog(catalog);
+
+    }
+
+    @Autowired
+    private TTagMapper tTagMapper;
+
+    private void initQuestionTag(TQuestion question){
+        List<TTag> tagList = tTagMapper.selectTaglistByQuestionId(question.getId());
+        List<String> tagNameList = new ArrayList<>();
+        for(TTag tag:tagList){
+            tagNameList.add(tag.getName());
+        }
+
+        //设置标签名称列表
+        question.setTagNameList(tagNameList);
+        question.setTagList(tagList);
+    }
+
+    @Autowired
+    private  TIndustryMapper industryMapper;
+
+    private void initQuestionCompany(TQuestion question){
+        //获取题目所属公司及行业信息
+        TCompany company = companyMapper.selectByIdForQuestion(question.getCompanyId());
+
+        //根据公司id，获取所属行业信息
+        List<TIndustry> industryList = industryMapper.selectIndustryListByCompany(question.getCompanyId());
+        //行业名称列表
+        List<String> industryNameList = new ArrayList<>();
+        for(TIndustry industry: industryList){
+            industryNameList.add(industry.getName());
+        }
+
+        company.setIndustryNameList(industryNameList);
+        company.setIndustryList(industryList);
+        //设置所属公司信息（包含城市及行业列表）
+        question.setCompany(company);
     }
 }

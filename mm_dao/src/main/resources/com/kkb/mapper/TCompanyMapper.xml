@@ -302,4 +302,9 @@
   <select id="selectListAll" resultMap="resultMapForAllList">
     SELECT id,`city_id` AS city_id,`short_name` AS shortName FROM `t_company`
   </select>
+  <select id="selectByIdForQuestion" resultType="com.kkb.pojo.TCompany">
+    select c.id,c.short_name AS shortName,d.`data_value` AS city
+    FROM t_company c,t_dict d
+    where c.id = #{id} AND c.`city_id` = d.`id`;
+  </select>
 </mapper>

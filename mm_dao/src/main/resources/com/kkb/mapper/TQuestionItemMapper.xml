@@ -210,4 +210,9 @@
       question_id = #{questionId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectListByQuestionId" resultType="com.kkb.pojo.TQuestionItem">
+    select id,content,img_url as imgUrl,is_right as isRight
+    from t_question_item
+    where question_id = #{id}
+  </select>
 </mapper>

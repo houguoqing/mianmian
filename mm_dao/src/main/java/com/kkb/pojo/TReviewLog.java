@@ -95,4 +95,18 @@ public class TReviewLog implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    //扩展字段
+    private String reviewer;//审核人
+
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
+    }
+
+
 }

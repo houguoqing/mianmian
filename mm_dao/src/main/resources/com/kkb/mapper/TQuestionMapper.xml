@@ -489,4 +489,28 @@
       </if>
     </where>
   </sql>
+  <resultMap id="baseResultMap" type="com.kkb.pojo.TQuestion">
+    <id property="id" column="id"/>
+    <result column="analysis_video" property="analysisVideo"/>
+    <result column="review_status" property="reviewStatus"/>
+    <result column="create_date" property="createDate" />
+    <result column="user_id" property="userId" />
+    <result column="company_id" property="companyId"/>
+    <result column="catalog_id" property="catalogId"/>
+    <result column="is_classic" property="isClassic" />
+    <collection property="questionItemList"
+                ofType="com.kkb.pojo.TQuestionItem"
+                javaType="java.util.ArrayList"
+                column="id"
+                select="com.kkb.mapper.TQuestionItemMapper.selectListByQuestionId"/>
+
+  </resultMap>
+
+  <select id="selectById" resultMap="baseResultMap">
+    select id ,if(`number` is null,'',number) as number,`subject`,`type`,`difficulty`,`analysis`,
+           `analysis_video`,`remark`,`is_classic`,`status`,`review_status`,
+           `create_date`,`user_id`,`company_id`,`catalog_id`
+    from `t_question`
+    where id = #{id}
+  </select>
 </mapper>

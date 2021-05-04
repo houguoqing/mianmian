@@ -32,4 +32,11 @@ public interface TIndustryMapper {
     int updateByPrimaryKeySelective(TIndustry record);
 
     int updateByPrimaryKey(TIndustry record);
+
+    /**
+     * 根据公司id,获取行业列表
+     * @param id
+     * @return
+     * */
+    List<TIndustry> selectIndustryListByCompany(Integer id);
 }

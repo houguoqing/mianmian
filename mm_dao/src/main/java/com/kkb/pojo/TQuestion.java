@@ -299,4 +299,36 @@ public class TQuestion implements Serializable {
                 ", tagList=" + tagList +
                 '}';
     }
+
+    //精选题库扩展字段
+    private TReviewLog reviewLog;//审核日志
+
+    public TReviewLog getReviewLog() {
+        return reviewLog;
+    }
+
+    public void setReviewLog(TReviewLog reviewLog) {
+        this.reviewLog = reviewLog;
+    }
+
+    //预览扩展字段
+    private List<String> tagNameList; //标签名称列表
+
+    public List<String> getTagNameList() {
+        return tagNameList;
+    }
+
+    public void setTagNameList(List<String> tagNameList) {
+        this.tagNameList = tagNameList;
+    }
+
+    public TCatalog getCatalog() {
+        return catalog;
+    }
+
+    public void setCatalog(TCatalog catalog) {
+        this.catalog = catalog;
+    }
+
+    private TCatalog catalog; //学科目录
 }

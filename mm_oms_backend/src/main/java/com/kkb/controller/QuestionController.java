@@ -67,4 +67,42 @@ public class QuestionController extends BaseController{
             return AjaxResult.error("操作失败："+e.getMessage());
         }
     }
+
+    @PostMapping("question/findClassicListByPage")
+    @ResponseBody
+    public TableDataInfo findClassicList(@RequestBody QueryPageBean queryPageBean){
+        try{
+            //调用Service 获取精选题库列表
+            List<TQuestion> questionList = questionService.findClassicByPage(queryPageBean);
+            return getDataTable(questionList);
+
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            TableDataInfo dataInfo = new TableDataInfo();
+            dataInfo.setCode(500);
+            dataInfo.setMsg("查询失败"+e.getMessage());
+            return dataInfo;
+        }
+    }
+
+    @GetMapping("questionPreview")
+    public String questionPreview(int questionId,int is_classic,int is_examine){
+        return "pages/questionPreview";
+    }
+
+    @GetMapping("question/findById")
+    @ResponseBody
+    public AjaxResult findById(int questionId){
+        try{
+            //调用service方法
+            logger.debug("查询问题，调用service,传入参数"+questionId);
+            TQuestion question = questionService.findById(questionId);
+            return AjaxResult.success(question);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return AjaxResult.error("查询失败"+e.getMessage());
+        }
+    }
+
+
 }

@@ -18,6 +18,11 @@ public interface TCatalogMapper {
 
     List<TCatalog> selectByExample(TCatalogExample example);
 
+    /**
+     * 根据主键获取学科目录信息，包含学科名称
+     * @param id
+     * @return
+     * */
     TCatalog selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") TCatalog record, @Param("example") TCatalogExample example);

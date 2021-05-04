@@ -172,116 +172,16 @@
             //初始化表单
             initForm() {
                 // 发送请求
-                let response = {
-                    data:{
-                        "code": 200,
-                        "msg": "获取成功",
-                        "data": {
-                            "analysis": "<p>图片选择</p>",
-                            "analysisVideo": "",
-                            "answerIsRight": false,
-                            "catalog": {
-                                "courseId": 1,
-                                "courseName": "Java",
-                                "createDate": "2019-08-08 00:00:00.0",
-                                "id": 1,
-                                "name": "Java基础",
-                                "status": 0,
-                                "userId": 1
-                            },
-                            "catalogId": 1,
-                            "company": {
-                                "city": "北京",
-                                "id": 1,
-                                "industryList": [
-                                    {
-                                        "id": 1,
-                                        "name": "电商平台"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "name": "金融服务"
-                                    },
-                                    {
-                                        "id": 18,
-                                        "name": "软件外包"
-                                    },
-                                    {
-                                        "id": 26,
-                                        "name": "新增方向5"
-                                    },
-                                    {
-                                        "id": 27,
-                                        "name": "新增方向6"
-                                    }
-                                ],
-                                "industryNameList": [
-                                    "电商平台",
-                                    "金融服务",
-                                    "软件外包",
-                                    "新增方向5",
-                                    "新增方向6"
-                                ],
-                                "shortName": "北京淘宝网"
-                            },
-                            "companyId": 1,
-                            "createDate": "2019-08-22 10:52:49.0",
-                            "difficulty": 1,
-                            "id": 654,
-                            "isFamous": false,
-                            "isFavorite": false,
-                            "isFinished": false,
-                            "number": "",
-                            "questionItemList": [
-                                {
-                                    "content": "a",
-                                    "id": 72,
-                                    "imgUrl": "",
-                                    "isRight": true
-                                },
-                                {
-                                    "content": "b",
-                                    "id": 73,
-                                    "imgUrl": "",
-                                    "isRight": false
-                                },
-                                {
-                                    "content": "c",
-                                    "id": 74,
-                                    "imgUrl": "",
-                                    "isRight": false
-                                },
-                                {
-                                    "content": "d",
-                                    "id": 75,
-                                    "imgUrl": "",
-                                    "isRight": false
-                                }
-                            ],
-                            "remark": "图片选择",
-                            "reviewStatus": 0,
-                            "status": 0,
-                            "subject": "<p>图片选择</p>",
-                            "tagList": [
-                                {
-                                    "id": 1,
-                                    "name": "String字符串"
-                                },
-                                {
-                                    "id": 2,
-                                    "name": "Java类与对象"
-                                }
-                            ],
-                            "tagNameList": [
-                                "String字符串",
-                                "Java类与对象"
-                            ],
-                            "type": 1,
-                            "userId": 1
+                axios.get(app_path+"question/findById?questionId=" + this.questionId).then((response)=>{
+                        if(response.data.code = 200){
+                            this.formData = response.data.data;
+                        }else{
+                            this.$message.error(response.data.msg)
                         }
+
                     }
-                }
-                this.formData = response.data.data;
+                )
+
             },
             // 审核试题
             reviewItem(status) {
@@ -293,8 +193,17 @@
                     status: status,
                     comments: ''
                 };
-                this.$message.success("审核通过");
-                window.location.href = "questionClassicList.html";
+                axios.post(app_path+"review/add",params).then((response)=>{
+                    if(response.data.code == 200){
+                        this.$message.success(response.data.msg);
+                        setTimeout(function (){
+                            window.location.href = "../questionClassicList";
+                        },1000);
+                    }else {
+                        this.$message.error("审核没通过"+response.data.msg);
+                    }
+                    }
+                )
             }
         }
     })

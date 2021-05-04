@@ -12,6 +12,11 @@ public interface TReviewLogMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    /**
+     * 添加审核日志
+     * @param record
+     * @return
+     * */
     int insert(TReviewLog record);
 
     int insertSelective(TReviewLog record);
@@ -27,4 +32,9 @@ public interface TReviewLogMapper {
     int updateByPrimaryKeySelective(TReviewLog record);
 
     int updateByPrimaryKey(TReviewLog record);
+
+    /**
+     *获取最后一条审核记录
+     * */
+    TReviewLog selectLastByQuestionId(Integer questionId);
 }

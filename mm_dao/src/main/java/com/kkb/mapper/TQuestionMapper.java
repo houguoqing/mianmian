@@ -52,5 +52,10 @@ public interface TQuestionMapper {
      * */
     List<TQuestion> selectIsClassicByPage(@Param("params") Map<String,Object> map);
 
-
+    /**
+     * 查询题目信息，级联查询选项信息
+     * @param questionId
+     * @return
+     * */
+    TQuestion selectById(int questionId);
 }

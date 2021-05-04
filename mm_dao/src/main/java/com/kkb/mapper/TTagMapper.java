@@ -27,4 +27,11 @@ public interface TTagMapper {
     int updateByPrimaryKeySelective(TTag record);
 
     int updateByPrimaryKey(TTag record);
+
+    /**
+     * 根据题目id 获取标签名称列表
+     * @param questionId
+     * @return
+     * */
+    List<TTag> selectTaglistByQuestionId(Integer questionId);
 }
