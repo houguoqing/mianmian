@@ -12,6 +12,7 @@
         <module>mm_dao</module>
         <module>mm_common</module>
         <module>mm_oms_backend</module>
+        <module>mm_wx_api</module>
     </modules>
 
     <properties>

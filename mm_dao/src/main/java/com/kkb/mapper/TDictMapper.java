@@ -27,4 +27,18 @@ public interface TDictMapper {
     int updateByPrimaryKeySelective(TDict record);
 
     int updateByPrimaryKey(TDict record);
+
+    /**
+     * 根据城市名称获取城市信息
+     * @param cityName
+     * @return
+     * */
+    TDict selectByCityName(String cityName);
+
+    /**
+     * 根据fs值获取城市列表
+     * @param fs
+     * @return
+     * */
+    List<TDict> selectCityListByTag(Integer fs);
 }

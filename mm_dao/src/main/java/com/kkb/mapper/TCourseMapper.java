@@ -53,4 +53,10 @@ public interface TCourseMapper {
      * @return
      */
     List<TCourse> selectListAll();
+
+    /**
+     * 获取学科列表
+     * @return
+     * */
+    List<TCourse> selectCourseList();
 }

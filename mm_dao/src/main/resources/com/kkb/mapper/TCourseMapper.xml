@@ -259,5 +259,8 @@
   <select id="selectListAll" resultMap="mapForAllList">
     select id,name from t_course
   </select>
-
+<select id="selectCourseList" resultType="com.kkb.pojo.TCourse">
+  SELECT id,NAME AS title,IF(icon IS NULL,"",icon) AS icon
+  FROM t_course WHERE is_show = 0
+</select>
 </mapper>

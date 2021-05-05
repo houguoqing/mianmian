@@ -118,4 +118,15 @@ public class TDict implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    //小程序扩展字段
+    private String title;
 }

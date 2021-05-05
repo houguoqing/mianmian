@@ -481,4 +481,14 @@
       last_question_id = #{lastQuestionId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByOpenId" resultMap="ResultMapWithBLOBs">
+    select *
+    from t_wx_member
+    where open_id = #{openId}
+  </select>
+<update id="updateCityCourse">
+  update t_wx_member
+  set city_id = #{cityID},course_id = #{subjectID}
+  where open_id = #{openId}
+</update>
 </mapper>
