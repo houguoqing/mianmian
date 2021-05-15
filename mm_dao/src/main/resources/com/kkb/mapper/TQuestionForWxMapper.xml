@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kkb.mapper.TQuestionForWxMapper">
+
+    <resultMap id="resultMapForQuestionList" type="com.kkb.pojo.TQuestionForWx">
+        <id column="id" property="id"/>
+        <collection property="tags"
+                    javaType="java.util.ArrayList"
+                    ofType="com.kkb.pojo.TTag"
+                    column="id"
+                    select="selectTagsByQuestionId"/>
+        <collection property="selection"
+                    javaType="java.util.ArrayList"
+                    ofType="com.kkb.pojo.TQuestionItemForWx"
+                    column="id"
+                    select="selectItemsByQuestionId"/>
+
+    </resultMap>
+
+    <select id="selectQuestionByQueryParam" resultMap="resultMapForQuestionList">
+        select *
+        from (SELECT q.id,`subject` AS title,
+        `difficulty` AS grade,
+        `analysis` AS content,
+        `analysis_video` AS video,
+        '' AS videoPoster,
+        IF(mq.tag IS NULL,0,1) AS isFinished,
+        IF(mq.`is_favorite`=1,1,0) AS isFavorite,
+        q.`type`,
+        mq.tag AS answerTag,
+        q.`catalog_id`,
+        mq.`answerResult`
+        FROM `t_question` q LEFT JOIN `tr_member_question` mq
+        ON q.id = mq.`question_id` AND mq.`member_id` = #{memberId}) SubQuestion
+        <where>
+            <if test=" categoryKind !=null and categoryKind == 1">
+                and  `catalog_id` = #{categoryID}
+            </if>
+        </where>
+
+
+
+    </select>
+
+    <select id="selectTagsByQuestionId" resultType="com.kkb.pojo.TTag">
+        select id,name as title from t_tag
+        where id in (select tag_id from tr_question_tag where question_id = #{id})
+    </select>
+
+    <select id="selectItemsByQuestionId" resultType="com.kkb.pojo.TQuestionItemForWx">
+        select id,'' as code,is_right as isRight,content as title
+        from t_question_item where question_id = #{id}
+    </select>
+
+</mapper>

@@ -3,6 +3,7 @@ package com.kkb.mm.wx.service;
 import com.kkb.pojo.TWxMember;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 会员业务接口类
@@ -28,4 +29,11 @@ public interface WxMemberService {
      * @return
      * */
     int updateCityCourse(HashMap<String, String> data);
+
+    /**
+     * 根据用户id 获取用户中心数据
+     * @param id
+     * @return
+     * */
+    Map<String, Object> findMemberCenterById(Integer id);
 }

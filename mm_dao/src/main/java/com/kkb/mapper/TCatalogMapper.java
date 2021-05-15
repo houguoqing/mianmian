@@ -2,7 +2,11 @@ package com.kkb.mapper;
 
 import com.kkb.pojo.TCatalog;
 import com.kkb.pojo.TCatalogExample;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TCatalogMapper {
@@ -32,4 +36,11 @@ public interface TCatalogMapper {
     int updateByPrimaryKeySelective(TCatalog record);
 
     int updateByPrimaryKey(TCatalog record);
+
+    /**
+     * 根据条件获取学科列表
+     * @param data
+     * @return
+     * */
+    List<Map> selectCategoryList(HashMap<String, Object> data);
 }

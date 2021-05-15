@@ -82,4 +82,7 @@ public class TQuestionItem implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    //小程序扩展字段
+
 }

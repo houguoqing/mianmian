@@ -97,4 +97,24 @@ public class WxMemberController extends BaseController {
             return AjaxResult.error("更新失败"+e.getMessage());
         }
     }
+
+    /**
+     *会员中心
+     * @return
+     */
+    @PostMapping("member/center")
+    @ResponseBody
+    public AjaxResult getMemberCenter(){
+        try {
+            //根据openId 获取用户id
+            String openId = getHeaderAuthorization();
+            TWxMember wxMember = wxMemberService.findByOpenId(openId);
+            //根据用户id 去数据库获取会员中心需要的数据
+            Map<String,Object> resultMap= wxMemberService.findMemberCenterById(wxMember.getId());
+            return AjaxResult.success(resultMap);
+        }catch (Exception e){
+            logger.error("获取用户数据失败"+e.getMessage());
+            return AjaxResult.error("查询失败："+e.getMessage());
+        }
+    }
 }

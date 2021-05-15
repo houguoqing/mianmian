@@ -491,4 +491,37 @@
   set city_id = #{cityID},course_id = #{subjectID}
   where open_id = #{openId}
 </update>
+  <update id="updateMemberLastAnswer">
+    update t_wx_member
+    set last_category_kind = #{categoryKind},
+        last_category_type = #{categoryType},
+        last_category_id = #{categoryID},
+        last_question_id = #{id}
+    where id = #{memberId}
+  </update>
+  <select id="selectMemberCenterById" resultType="java.util.HashMap">
+    select m.`last_category_type` as categoryType ,
+           m.`last_category_kind` as categoryKind,
+           (SELECT COUNT(id) FROM `tr_member_question` WHERE `member_id` = m.id) as answerCount,
+           (SELECT `data_value` FROM `t_dict` WHERE id = m.`city_id`) as cityName,
+           '' as categoryTitle,
+           m.`city_id` as cityID,
+           m.`last_category_id` as categoryID,
+           m.`last_question_id` as lastQuestionId,
+           m.`course_id` as subjectID
+    from `t_wx_member` m
+    where id = #{id}
+  </select>
+
+  <select id="selectCategoryTitleByCategory" resultType="java.lang.String">
+    <if test="categoryKind == 1">
+    select name as categoryTitle from t_catelog where id = #{categoryID}
+    </if>
+    <if test="categoryKind == 2">
+    select short_name as categoryTitle from t_company where id = #{categoryID}
+    </if>
+    <if test="categoryKind == 3">
+    select name as categoryTitle from t_industry where id = #{categoryID}
+    </if>
+  </select>
 </mapper>

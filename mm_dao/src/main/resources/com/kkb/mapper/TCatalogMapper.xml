@@ -248,4 +248,16 @@
     select  id,name from t_catalog
     where course_id = #{id}
   </select>
+
+  <select id="selectCategoryList" resultType="java.util.Map">
+    select id,name as title,
+    (select count(id) from `t_question` where `catalog_id` =c.id) as allCount,
+    (SELECT COUNT(id) FROM `t_question`  q
+    WHERE  q.`catalog_id` = c.id  AND id IN ( SELECT `question_id` FROM `tr_member_question` WHERE member_id = #{memberId})) as finishedCount
+    from `t_catalog` c
+    where status = 0 and `course_id` = #{courseId}
+    <if test=" categoryID != null">
+      and c.id = #{categoryID}
+    </if>
+  </select>
 </mapper>

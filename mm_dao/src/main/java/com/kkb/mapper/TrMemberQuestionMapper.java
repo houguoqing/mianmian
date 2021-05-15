@@ -12,6 +12,11 @@ public interface TrMemberQuestionMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    /**
+     * 新增用户答题记录
+     * @param record
+     * @return
+     * */
     int insert(TrMemberQuestion record);
 
     int insertSelective(TrMemberQuestion record);
@@ -20,6 +25,12 @@ public interface TrMemberQuestionMapper {
 
     TrMemberQuestion selectByPrimaryKey(Integer id);
 
+    /**
+     * 根据条件修改记录
+     * @param record
+     * @param example
+     * @return
+     * */
     int updateByExampleSelective(@Param("record") TrMemberQuestion record, @Param("example") TrMemberQuestionExample example);
 
     int updateByExample(@Param("record") TrMemberQuestion record, @Param("example") TrMemberQuestionExample example);
